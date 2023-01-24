@@ -15,9 +15,7 @@ describe('AppController', () => {
   describe('getData', () => {
     it('should return "Welcome to serverless!"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({
-        message: 'Welcome to serverless!',
-      });
+      expect(appController.getData()).toEqual('Welcome to serverless!');
     });
   });
 });
