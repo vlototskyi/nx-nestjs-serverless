@@ -9,7 +9,6 @@ export const baseServerlessConfig: AWS = {
   },
   plugins: [
     'serverless-plugin-typescript',
-    'serverless-plugin-optimize',
     'serverless-offline',
   ],
   custom: {
