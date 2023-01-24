@@ -1,0 +1,39 @@
+name: Lint,Test,Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+#env:
+#  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  lint_test_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: 'main'
+
+      - name: Node setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: install dependencies
+        run: npm ci
+
+      - name: lint
+        run: npm run lint:affected
+
+      - name: test
+        run:  npm run test:affected
+
+      - name: build
+        run:  npm run build:affected

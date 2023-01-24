@@ -5,34 +5,41 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-commands",
       "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "outputPath": "dist/apps/serverless",
-        "main": "apps/serverless/src/main.ts",
-        "tsConfig": "apps/serverless/tsconfig.app.json",
-        "assets": ["apps/serverless/src/assets"],
-        "webpackConfig": "apps/serverless/webpack.config.js"
-      },
-      "configurations": {
-        "production": {
-          "optimization": true,
-          "extractLicenses": true,
-          "inspect": false
-        }
+        "cwd": "apps/serverless",
+        "color": true,
+        "command": "mkdir -p node_modules && TS_NODE_PROJECT=tsconfig.serverless.json sls package && rm -rf node_modules"
       }
     },
     "serve": {
-      "executor": "@nrwl/js:node",
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "serverless:build"
+        "cwd": "apps/serverless",
+        "color": true,
+        "command": "TS_NODE_PROJECT=tsconfig.serverless.json nodemon --exec \"rm -rf .build && sls offline start\""
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/serverless",
+        "color": true,
+        "command": "mkdir -p node_modules && TS_NODE_PROJECT=tsconfig.serverless.json sls deploy --verbose && rm -rf node_modules"
       },
-      "configurations": {
-        "production": {
-          "buildTarget": "serverless:build:production"
+      "dependsOn": [
+        {
+          "target": "deploy",
+          "projects": "dependencies"
         }
+      ]
+    },
+    "remove": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/serverless",
+        "color": true,
+        "command": "TS_NODE_PROJECT=tsconfig.serverless.json sls remove"
       }
     },
     "lint": {

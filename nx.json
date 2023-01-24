@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "guard-metrics-v2",
+  "npmScope": "nx-serverless",
   "affected": {
     "defaultBase": "master"
   },
