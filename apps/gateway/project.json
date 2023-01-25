@@ -1,0 +1,25 @@
+{
+  "name": "gateway",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/gateway/src",
+  "projectType": "application",
+  "targets": {
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/gateway",
+        "color": true,
+        "command": "mkdir -p node_modules && TS_NODE_PROJECT=tsconfig.serverless.json sls deploy --verbose && rm -rf node_modules"
+      }
+    },
+    "remove": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/gateway",
+        "color": true,
+        "command": "TS_NODE_PROJECT=tsconfig.serverless.json sls remove"
+      }
+    }
+  },
+  "tags": []
+}

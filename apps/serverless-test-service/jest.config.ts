@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'serverless',
+  displayName: 'serverless-test-service',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
