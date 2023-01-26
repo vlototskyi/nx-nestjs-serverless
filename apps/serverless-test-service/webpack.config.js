@@ -7,7 +7,6 @@ module.exports = composePlugins(withNx(), (config) => {
     '@nestjs/microservices/microservices-module',
     '@nestjs/websockets/socket-module',
     '@nestjs/microservices', 
-    '@nestjs/platform-express', 
     'cache-manager', 
     'class-validator', 
     'class-transformer'
@@ -15,7 +14,6 @@ module.exports = composePlugins(withNx(), (config) => {
 
   return {
     ...config,
-    externals: [],
     plugins: [
       ...config.plugins,
       new IgnorePlugin({

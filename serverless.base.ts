@@ -12,9 +12,12 @@ export const baseServerlessConfig: AWS = {
   useDotenv: true,
   package: {
     individually: true,
+    excludeDevDependencies: false,
     patterns: ['!./**', 'dist/**/*']
   },
   plugins: [
+    'serverless-plugin-common-excludes',
+    'serverless-plugin-include-dependencies',
     'serverless-offline',
   ],
   provider: {

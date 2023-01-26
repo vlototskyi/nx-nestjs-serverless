@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { ExpressAdapter } from '@nestjs/platform-express';
 import { configure as serverlessExpress } from '@vendia/serverless-express';
 import { Callback, Context, Handler } from 'aws-lambda';
 import { AppModule } from './app/app.module';
@@ -6,7 +7,7 @@ import { AppModule } from './app/app.module';
 let server: Handler;
 
 async function serverless(): Promise<Handler> {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, new ExpressAdapter());
   await app.init();
 
   const expressApp = app.getHttpAdapter().getInstance();

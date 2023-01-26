@@ -20,7 +20,8 @@
         "production": {
           "optimization": true,
           "extractLicenses": true,
-          "inspect": false
+          "inspect": false,
+          "sourceMap": false
         }
       }
     },
@@ -30,6 +31,14 @@
         "cwd": "apps/serverless-test-service",
         "color": true,
         "command": "nodemon --exec \"npx nx build serverless-test-service && TS_NODE_PROJECT=tsconfig.serverless.json sls offline start\""
+      }
+    },
+    "package": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/serverless-test-service",
+        "color": true,
+        "command": "TS_NODE_PROJECT=tsconfig.serverless.json sls package"
       }
     },
     "deploy": {
@@ -43,6 +52,11 @@
         {
           "target": "deploy",
           "projects": "dependencies"
+        },
+        { 
+          "projects": "self", 
+          "target": "build", 
+          "params": "forward" 
         }
       ]
     },
